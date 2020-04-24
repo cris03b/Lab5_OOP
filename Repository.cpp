@@ -6,10 +6,12 @@ class Repo {
 public:
 	Movie movies[100];
 	Movie watchlist[100];
-	int length = 10;
-	int wlen = 0;
+	int length=10;
+	int wlen=0;
+
+	Repo() {
 	
-	Repo();
+	};
 
 	Movie* create_list() {
 		string titles[10] = { "Suicide Squad", "Titanic", "Pirates of the Caribbean", "Murder on the orient express", "Avatar", "The professor", "Dead Poets Society", "Frozen", "Joker", "I Origins" };
@@ -26,6 +28,19 @@ public:
 		}
 
 		return movies;
+	}
+
+	void show_movies() {
+		if (length != 0) {
+			cout << "Here are all the movies that we have" << endl;
+			for (int i = 0; i < length; i++) {
+				cout << "Title: " << movies[i].getTitle() << ", Genre: " << movies[i].getGenre() << \
+					", Year: " << movies[i].getYear() << ", Likes: " << movies[i].getLikes() << endl;
+			}
+		}
+		else {
+			cout << "There are no movies in your watchlist! Sign in as administrator and add more.";
+		}
 	}
 
 	Movie* add_movie(Movie m, string option) {
