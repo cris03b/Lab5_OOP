@@ -6,11 +6,11 @@ class Repo {
 public:
 	Movie movies[100];
 	Movie watchlist[100];
-	int length=10;
-	int wlen=0;
+	int length = 10;
+	int wlen = 0;
 
 	Repo() {
-	
+
 	};
 
 	Movie* create_list() {
@@ -32,14 +32,14 @@ public:
 
 	void show_movies() {
 		if (length != 0) {
-			cout << "Here are all the movies that we have" << endl;
+			cout << endl << "Here are all the movies that we have" << endl;
 			for (int i = 0; i < length; i++) {
 				cout << "Title: " << movies[i].getTitle() << ", Genre: " << movies[i].getGenre() << \
 					", Year: " << movies[i].getYear() << ", Likes: " << movies[i].getLikes() << endl;
 			}
 		}
 		else {
-			cout << "There are no movies in your watchlist! Sign in as administrator and add more.";
+			cout << endl << "There are no movies in your watchlist! Sign in as administrator and add more.";
 		}
 	}
 
@@ -85,16 +85,16 @@ public:
 	}
 
 
-	Movie* delete_movie_list(Movie m) {
+	Movie* delete_movie_list(string title, int year) {
 		bool found = false;
 		for (int i = 0; i < length; i++) {
-			if (movies[i].getTitle() == m.getTitle() && movies[i].getYear() == m.getYear()) {
-				for (int j = i + 1;j < length;j++) {
+			if (movies[i].getTitle() == title && movies[i].getYear() == year) {
+				for (int j = i + 1; j < length; j++) {
 					movies[i - 1] = movies[i];
 				}
 				length--;
 				found = true;
-				cout << "You just deleted the movie: " << m.getTitle() << " from the list! Hope you are happy..." << endl;
+				cout << "You just deleted the movie: " << title << " from the list! Hope you are happy..." << endl;
 				break;
 			}
 		}
@@ -104,19 +104,19 @@ public:
 		return movies;
 	}
 
-	Movie* delete_movie_watchlist(Movie m) {
+	Movie* delete_movie_watchlist(string title, int year) {
 		int found = -1;
 		for (int i = 0; i < wlen; i++) {
-			if (watchlist[i].getTitle() == m.getTitle() && watchlist[i].getYear() == m.getYear()) {
+			if (watchlist[i].getTitle() == title && watchlist[i].getYear() == year) {
 				found = i;
 				break;
 			}
 		}
-		if (found==-1) {
+		if (found == -1) {
 			cout << "The movie you wanted to delete was not in the list...Try to delete another movie, if you want to." << endl;
 		}
 		else {
-			for (int j = found + 1;j < wlen;j++) {
+			for (int j = found + 1; j < wlen; j++) {
 				watchlist[j - 1] = watchlist[j];
 			}
 			wlen--;
@@ -138,11 +138,12 @@ public:
 		return movies;
 	}
 
-	Movie* edit_movie(string title, int year, string option) {
+	void edit_movie(string title, int year, string option) {
 		bool found = false;
 		if (option == "title") {
 			for (int i = 0; i < length; i++) {
 				if (movies[i].getTitle() == title || movies[i].getYear() == year) {
+					cout << endl << "New title: ";
 					string new_title;
 					cin >> new_title;
 					movies[i].setTitle(new_title);
@@ -155,6 +156,7 @@ public:
 		else if (option == "genre") {
 			for (int i = 0; i < length; i++) {
 				if (movies[i].getTitle() == title || movies[i].getYear() == year) {
+					cout << endl << "New genre: ";
 					string new_genre;
 					cin >> new_genre;
 					movies[i].setGenre(new_genre);
@@ -167,6 +169,7 @@ public:
 		else if (option == "year") {
 			for (int i = 0; i < length; i++) {
 				if (movies[i].getTitle() == title || movies[i].getYear() == year) {
+					cout << endl << "New year: ";
 					int new_year;
 					cin >> new_year;
 					movies[i].setYear(new_year);
@@ -176,9 +179,10 @@ public:
 			}
 		}
 
-		else if (option == "like") {
+		else if (option == "likes") {
 			for (int i = 0; i < length; i++) {
 				if (movies[i].getTitle() == title || movies[i].getYear() == year) {
+					cout << endl << "New number of likes: ";
 					int new_like;
 					cin >> new_like;
 					movies[i].setLikes(new_like);
@@ -188,16 +192,20 @@ public:
 			}
 		}
 
-		/*else if (option == "trailer") {
+		else if (option == "trailer") {
 			for (int i = 0; i < length; i++) {
 				if (movies[i].getTitle() == title || movies[i].getYear() == year) {
+					cout << endl << "New url for trailer: ";
 					CString new_trailer;
+					char myString[256];
+					cin >> myString;
+					new_trailer = CString(myString);
 					movies[i].setTrailer(new_trailer);
-					cout << "Great! You just updated the likes!" << endl;
+					cout << "Great! You just updated the url!" << endl;
 					found = true;
 				}
 			}
-		}*/
+		}
 
 		else {
 			cout << "Sorry, the option is not valid :(" << endl;
