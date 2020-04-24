@@ -11,6 +11,14 @@ private:
 	CString trailer;
 
 public:
+	Movie() {
+		this->title = "";
+		this->genre = "";
+		this->year = 0;
+		this->likes = 0;
+		this->trailer = "";
+	}
+
 	Movie(string title, string genre, int year, int likes, CString trailer) {
 		this->title = title;
 		this->genre = genre;

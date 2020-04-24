@@ -6,22 +6,35 @@
 class Controller {
 public:
 	Repo repo;
-	Controller();
+	Controller() {
 
-	void show_movies();
+	}
 
-	void show_watchlist(string genre) {
+	void show_watchlist() {
+		if (repo.wlen != 0) {
+			cout << endl << "Here are all the movies from your watchlist" << endl;
+			for (int i = 0; i < repo.wlen; i++) {
+				cout << endl << "Title: " << repo.watchlist[i].getTitle() << ", Genre: " << repo.watchlist[i].getGenre() << \
+					", Year: " << repo.watchlist[i].getYear() << ", Likes: " << repo.watchlist[i].getLikes() << endl;
+			}
+		}
+		else {
+			cout << "Wow! You have seen all the movies from your watchlist" << endl << "The watchlist is now empty! Good job! :D" << endl;
+		}
+	}
+
+	void find_movie(string genre) {
 		if (genre != "") {
-			cout << "Here are the movies with that specific genre" << endl;
+			cout << endl << "Here are the movies with that specific genre" << endl;
 			for (int i = 0; i < repo.length; i++) {
 				if (repo.movies[i].getGenre() == genre) {
-					cout << "Title: " << repo.movies[i].getTitle() << ", Genre: " << repo.movies[i].getGenre() <<\
+					cout << endl << "Title: " << repo.movies[i].getTitle() << ", Genre: " << repo.movies[i].getGenre() <<\
 						", Year: " << repo.movies[i].getYear() << ", Likes: " << repo.movies[i].getLikes() << endl;
 					ShellExecute(0, 0, repo.movies[i].getTrailer(), 0, 0, SW_SHOW);
-					cout << "So... Did you find that movie interesting?" << endl << \
+					cout << endl << "So... Did you find that movie interesting?" << endl << \
 						"If you did, hurry up before you don't forget the title! Add it to your watchlist! :D" << endl \
-						<< "If not, don't worry. You'll find one you like, don't lose your hope!" << endl;
-					cout << "Your choice" << endl << "Add/Continue: ";
+						<< "If not, don't worry. You'll find one you like, keep searching!" << endl;
+					cout << endl << "Your choice" << endl << "Add/Continue: ";
 					string choice;
 					cin >> choice;
 					if (choice == "Add") {
@@ -31,15 +44,15 @@ public:
 			}
 		}
 		else {
-			cout << "Here are all the movies that we have" << endl;
+			cout << endl << "Here are all the movies that we have" << endl;
 			for (int i = 0; i < repo.length; i++) {
-				cout << "Title: " << repo.movies[i].getTitle() << ", Genre: " << repo.movies[i].getGenre() << \
+				cout << endl << "Title: " << repo.movies[i].getTitle() << ", Genre: " << repo.movies[i].getGenre() << \
 					", Year: " << repo.movies[i].getYear() << ", Likes: " << repo.movies[i].getLikes() << endl;
 				ShellExecute(0, 0, repo.movies[i].getTrailer(), 0, 0, SW_SHOW);
-				cout << "So... Did you find that movie interesting?" << endl << \
+				cout << endl << "So... Did you find that movie interesting?" << endl << \
 					"If you did, hurry up before you don't forget the title! Add it to your watchlist! :D" << endl \
 					<< "If not, don't worry. You'll find one you like, don't lose your hope!" << endl;
-				cout << "Your choice" << endl << "Add/Continue: ";
+				cout << endl << "Your choice" << endl << "Add/Continue: ";
 				string choice;
 				cin >> choice;
 				if (choice == "Add") {
@@ -47,6 +60,7 @@ public:
 				}
 			}
 		}
-		cout << endl << "That's all we have for you today, hope you found something to watch!" << endl << "Come back later for new movies!" << endl;
+		cout << endl << "That's all we have for you today, hope you found something you like!" << endl << "Come back later for new movies!" << endl;
 	}
 };
+
