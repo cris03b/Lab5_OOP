@@ -3,12 +3,12 @@
 using namespace std;
 
 class Repo {
-private:
+public:
 	Movie movies[100];
 	Movie watchlist[100];
 	int length = 10;
 	int wlen = 0;
-public:
+	
 	Repo();
 
 	Movie* create_list() {
