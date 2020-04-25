@@ -98,7 +98,7 @@ public:
 
 	Movie* delete_movie_list(string title, int year) {
 		//Loscht durch den Administratormode ein Film aus der Liste
-		bool found = -1;
+		int found = -1;
 		//Sucht den Film und speichert die Position
 		for (int i = 0; i < length; i++) {
 			if (movies[i].getTitle() == title && movies[i].getYear() == year) {
