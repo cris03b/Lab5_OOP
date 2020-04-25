@@ -14,13 +14,13 @@ public:
 	};
 
 	Movie* create_list() {
-		string titles[10] = { "Suicide Squad", "Titanic", "Pirates of the Caribbean", "Murder on the orient express", "Avatar", "The professor", "Dead Poets Society", "Frozen", "Joker", "I Origins" };
-		string genres[10] = { "action", "drama", "action", "mystery", "SF", "comedy", "drama", "animation", "thriller", "thriller" };
+		string titles[10] = { "Suicide Squad", "Titanic", "Pirates of the Caribbean", "Murder on the orient express", "Avatar", "The professor", "Dead Poets Society", "Frozen", "Joker", "The Giver" };
+		string genres[10] = { "action", "drama", "action", "mystery", "SF", "comedy", "drama", "animation", "thriller", "SF" };
 		int years[10] = { 2016, 1997, 2017, 2017, 2009, 2018, 1989, 2013, 2019, 2014 };
 		int likes[10] = { 10, 11, 9, 8, 7, 7, 10, 8, 9, 11 };
-		CString trailers[10] = { "https://www.youtube.com/watch?v=CmRih_VtVAs", "https://www.youtube.com/watch?v=2e-eXJ6HgkQ", "https://www.youtube.com/watch?v=naQr0uTrH_s", "https://www.youtube.com/watch?v=Mq4m3yAoW8E", \
-			"https://www.youtube.com/watch?v=5PSNL1qE6VY", "https://www.youtube.com/watch?v=IThXCpk3Oc4", "https://www.youtube.com/watch?v=4lj185DaZ_o",\
-			"https://www.youtube.com/watch?v=R-cdIvgBCWY", "https://www.youtube.com/watch?v=zAGVQLHvwOY", "https://www.youtube.com/watch?v=Mk4briOLrTQ" };
+		CString trailers[10] = { "https://www.youtube.com/watch?v=CmRih_VtVAs", "https://www.youtube.com/watch?v=2e-eXJ6HgkQ", "https://www.youtube.com/watch?v=naQr0uTrH_s", \
+			"https://www.youtube.com/watch?v=Mq4m3yAoW8E", "https://www.youtube.com/watch?v=5PSNL1qE6VY", "https://www.youtube.com/watch?v=IThXCpk3Oc4", "https://www.youtube.com/watch?v=4lj185DaZ_o", \
+			"https://www.youtube.com/watch?v=R-cdIvgBCWY", "https://www.youtube.com/watch?v=zAGVQLHvwOY", "https://www.youtube.com/watch?v=uxFJvlWqphM" };
 
 		for (int i = 0; i < 10; i++) {
 			Movie m(titles[i], genres[i], years[i], likes[i], trailers[i]);
@@ -32,7 +32,7 @@ public:
 
 	void show_movies() {
 		if (length != 0) {
-			cout << endl << "Here are all the movies that we have" << endl;
+			cout << endl << "Here are all the movies that we have:";
 			for (int i = 0; i < length; i++) {
 				cout << "Title: " << movies[i].getTitle() << ", Genre: " << movies[i].getGenre() << \
 					", Year: " << movies[i].getYear() << ", Likes: " << movies[i].getLikes() << endl;
@@ -74,10 +74,10 @@ public:
 			if (!wfound) {
 				watchlist[wlen] = m;
 				wlen++;
-				cout << "YAY! You just added " << m.getTitle() << " in your watchlist!" << endl;
+				cout << endl << "YAY! You just added " << m.getTitle() << " in your watchlist!" << endl;
 			}
 			else {
-				cout << "Oops... it seems like you really like this movie, because you wanted to add it again in your watchlist!" << endl;
+				cout << "Oww... it seems like you really like this movie, because you wanted to add it again in your watchlist!" << endl;
 			}
 			return watchlist;
 		}
@@ -121,15 +121,15 @@ public:
 			}
 			wlen--;
 			found = true;
-			cout << "You just deleted the movie: " << m.getTitle() << " from the list! If you liked it, you can support them with a Like . If you didn't, sorry." << endl;
-			cout << "Like/Not";
+			cout << "You just deleted the movie: " << title << " from the list! If you liked it, you can support them with a Like . If you didn't, sorry." << endl;
+			cout << "Like/Not: ";
 			string option;
 			cin >> option;
 			if (option == "Like") {
 				for (int i = 0; i < length; i++) {
-					if (movies[i].getTitle() == m.getTitle() && movies[i].getYear() == m.getYear()) {
+					if (movies[i].getTitle() == title && movies[i].getYear() == year) {
 						movies[i].setLikes(movies[i].getLikes() + 1);
-						cout << "\nThank you for your support!";
+						cout << "\nThank you for your support!" << endl;
 						break;
 					}
 				}
@@ -208,7 +208,7 @@ public:
 		}
 
 		else {
-			cout << "Sorry, the option is not valid :(" << endl;
+			cout << "Sorry, the option is not valid..." << endl;
 		}
 	}
 
