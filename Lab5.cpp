@@ -114,7 +114,8 @@ int main()
 				if (option == 1) {
 					cout << endl << "Add a movie";
 					cout << "\nTitle: ";
-					cin >> title;
+					cin.get();
+					getline(cin, title, '\n');
 					cout << "Genre: ";
 					cin >> genre;
 					cout << "Year: ";
