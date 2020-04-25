@@ -117,7 +117,7 @@ int main()
 			cout << endl << "You entered the Administrator mode" << endl;
 			while (true) {
 				cout << endl << "1. Add a new movie to the movielist" << endl << \
-					"2. Delete the movie from the movielist" << endl << \
+					"2. Delete a movie from the movielist" << endl << \
 					"3. Edit a movie" << endl << \
 					"4. See the movielist" << endl << \
 					"5. Back" << endl << \
