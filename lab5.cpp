@@ -33,7 +33,7 @@ void Teste() {
 
 int main()
 {
-	Teste();
+	// Teste();
 	Controller cont;
 	cont.repo.create_list();
 	CString url;
