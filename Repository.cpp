@@ -14,6 +14,7 @@ public:
 	};
 
 	Movie* create_list() {
+		// die Datenbank erstellen
 		string titles[10] = { "Suicide Squad", "Titanic", "Pirates of the Caribbean", "Murder on the orient express", "Avatar", "The professor", "Dead Poets Society", "Frozen", "Joker", "The Giver" };
 		string genres[10] = { "action", "drama", "action", "mystery", "SF", "comedy", "drama", "animation", "thriller", "SF" };
 		int years[10] = { 2016, 1997, 2017, 2017, 2009, 2018, 1989, 2013, 2019, 2014 };
@@ -32,7 +33,7 @@ public:
 
 	void show_movies() {
 		if (length != 0) {
-			cout << endl << "Here are all the movies that we have:";
+			cout << endl << "Here are all the movies that we have:" << endl;
 			for (int i = 0; i < length; i++) {
 				cout << "Title: " << movies[i].getTitle() << ", Genre: " << movies[i].getGenre() << \
 					", Year: " << movies[i].getYear() << ", Likes: " << movies[i].getLikes() << endl;
@@ -43,27 +44,34 @@ public:
 		}
 	}
 
+	// eine Funktion um die Filme auch als Benutzer und als Admin hinzufugen
+	// option = user/admin
 	Movie* add_movie(Movie m, string option) {
 		bool found = false;
 		for (int i = 0; i < length; i++) {
+			// uberprufen ob der Film in der Datenbank existiert (wir uberprufen auch das Jahr, weil einen Film in verschiedenen Jahren veroffentlich werden kann)
 			if (movies[i].getTitle() == m.getTitle() && movies[i].getYear() == m.getYear()) {
 				found = true;
 			}
 		}
+		// wenn der Film nicht existiert und wir als Admin arbeiten => den Film in der Datenbank hinzufugen
 		if (!found && option == "admin") {
 			movies[length] = m;
 			length++;
 			cout << "YAY! You just added " << m.getTitle() << " in the list!" << endl;
 			return movies;
 		}
+		// wenn der Film nicht existiert und wir als Benutzer arbeiten => kann der Film nicht in der Watchliste hinzugefugt werden 
 		else if (!found && option == "user") {
 			cout << "Sorry, the movie doesn't exist :(" << endl;
 			return watchlist;
 		}
+		// wenn der Film existiert und wir als Admin arbeiten => kann der Film nicht in der Datenbank noch einmal hinzugefugt werden 
 		else if (found && option == "admin") {
 			cout << "Sorry, the movie already exists..." << endl;
 			return movies;
 		}
+		// wenn der Film existiert und wir als Benutzer arbeiten => suchen wir den Film in der Watchliste 
 		else if (found && option == "user") {
 			bool wfound = false;
 			for (int j = 0; j < wlen; j++) {
@@ -71,11 +79,13 @@ public:
 					wfound = true;
 				}
 			}
+			// wenn wir den Film nicht gefunden haben => wird es hinzugefugt
 			if (!wfound) {
 				watchlist[wlen] = m;
 				wlen++;
 				cout << endl << "YAY! You just added " << m.getTitle() << " in your watchlist!" << endl;
 			}
+			// wenn wird den Film gefunden haben => Nachricht
 			else {
 				cout << "Oww... it seems like you really like this movie, because you wanted to add it again in your watchlist!" << endl;
 			}
@@ -107,7 +117,7 @@ public:
 	Movie* delete_movie_watchlist(string title, int year) {
 		int found = -1;
 		if (wlen == 0) {
-			cout << "Your wathclist is empty. Try adding a movie first.";
+			cout << "Your watchlist is empty. Try adding a movie first.";
 		}
 		else {
 			for (int i = 0; i < wlen; i++) {
@@ -143,14 +153,17 @@ public:
 		return watchlist;
 	}
 
+	// option = title/genre/year/likes/trailer
 	void edit_movie(string title, int year, string option) {
 		bool found = false;
 		if (option == "title") {
+			// der Film in der Datenbank suchen; wenn wir es gefunden haben => andern wir den Titel mit new_title
 			for (int i = 0; i < length; i++) {
 				if (movies[i].getTitle() == title || movies[i].getYear() == year) {
 					cout << endl << "New title: ";
 					string new_title;
-					cin >> new_title;
+					cin.get();
+					getline(cin, new_title, '\n');
 					movies[i].setTitle(new_title);
 					cout << "Great! You just updated the title!" << endl;
 					found = true;
@@ -159,6 +172,7 @@ public:
 		}
 
 		else if (option == "genre") {
+			// der Film in der Datenbank suchen; wenn wir es gefunden haben => andern wir das Genre mit new_genre
 			for (int i = 0; i < length; i++) {
 				if (movies[i].getTitle() == title || movies[i].getYear() == year) {
 					cout << endl << "New genre: ";
@@ -172,6 +186,7 @@ public:
 		}
 
 		else if (option == "year") {
+			// der Film in der Datenbank suchen; wenn wir es gefunden haben => andern wir das Jahr mit new_year
 			for (int i = 0; i < length; i++) {
 				if (movies[i].getTitle() == title || movies[i].getYear() == year) {
 					cout << endl << "New year: ";
@@ -185,6 +200,7 @@ public:
 		}
 
 		else if (option == "likes") {
+			// der Film in der Datenbank suchen; wenn wir es gefunden haben => andern wir die Anzahl von Likes mit new_likes
 			for (int i = 0; i < length; i++) {
 				if (movies[i].getTitle() == title || movies[i].getYear() == year) {
 					cout << endl << "New number of likes: ";
@@ -198,12 +214,15 @@ public:
 		}
 
 		else if (option == "trailer") {
+			// der Film in der Datenbank suchen; wenn wir es gefunden haben => andern wir den Trailer mit new_trailer
 			for (int i = 0; i < length; i++) {
 				if (movies[i].getTitle() == title || movies[i].getYear() == year) {
 					cout << endl << "New url for trailer: ";
 					CString new_trailer;
+					// wir lesen den URL als Char
 					char myString[256];
 					cin >> myString;
+					// wir verwandeln dem Char in CString
 					new_trailer = CString(myString);
 					movies[i].setTrailer(new_trailer);
 					cout << "Great! You just updated the url!" << endl;
@@ -212,6 +231,7 @@ public:
 			}
 		}
 
+		// wenn die Option nicht gultig ist => Nachricht
 		else {
 			cout << "Sorry, the option is not valid..." << endl;
 		}
