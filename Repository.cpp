@@ -32,6 +32,7 @@ public:
 	}
 
 	void show_movies() {
+		//Zeigt alle Filme, die in der Liste sind
 		if (length != 0) {
 			cout << endl << "Here are all the movies that we have:" << endl;
 			for (int i = 0; i < length; i++) {
@@ -96,13 +97,16 @@ public:
 
 
 	Movie* delete_movie_list(string title, int year) {
+		//Loscht durch den Administratormode ein Film aus der Liste
 		bool found = -1;
+		//Sucht den Film und speichert die Position
 		for (int i = 0; i < length; i++) {
 			if (movies[i].getTitle() == title && movies[i].getYear() == year) {
 				found = i;
 				break;
 			}
 		}
+		//Verschiebt im Vektor und so wird der Film mit dem gegebenen Titel und Jahr geloscht
 		if (found != -1) {
 			for (int j = found + 1; j < length; j++) {
 				movies[j - 1] = movies[j];
@@ -117,6 +121,7 @@ public:
 	}
 
 	Movie* delete_movie_watchlist(string title, int year) {
+		//Loscht ein Film aus der Watchiste des Users
 		int found = -1;
 		if (wlen == 0) {
 			cout << "Your watchlist is empty. Try adding a movie first.";
@@ -128,6 +133,7 @@ public:
 					break;
 				}
 			}
+			//Verschiebt im Vektor und so wird der Film mit dem gegebenen Titel und Jahr geloscht
 			if (found == -1) {
 				cout << "The movie you wanted to delete was not in the list...Try to delete another movie, if you want to." << endl;
 			}
