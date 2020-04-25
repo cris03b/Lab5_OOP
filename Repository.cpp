@@ -96,19 +96,21 @@ public:
 
 
 	Movie* delete_movie_list(string title, int year) {
-		bool found = false;
+		bool found = -1;
 		for (int i = 0; i < length; i++) {
 			if (movies[i].getTitle() == title && movies[i].getYear() == year) {
-				for (int j = i + 1; j < length; j++) {
-					movies[i - 1] = movies[i];
-				}
-				length--;
-				found = true;
-				cout << "You just deleted the movie: " << title << " from the list! Hope you are happy..." << endl;
+				found = i;
 				break;
 			}
 		}
-		if (!found) {
+		if (found != -1) {
+			for (int j = found + 1; j < length; j++) {
+				movies[j - 1] = movies[j];
+			}
+			length--;
+			cout << "You just deleted the movie: " << title << " from the list! Hope you are happy..." << endl;
+		}
+		else {
 			cout << "The movie you wanted to delete was not in the list...Try to delete another movie, if you want to." << endl;
 		}
 		return movies;
@@ -159,8 +161,8 @@ public:
 		if (option == "title") {
 			// der Film in der Datenbank suchen; wenn wir es gefunden haben => andern wir den Titel mit new_title
 			for (int i = 0; i < length; i++) {
-				if (movies[i].getTitle() == title || movies[i].getYear() == year) {
-					cout << endl << "New title: ";
+				if (movies[i].getTitle() == title && movies[i].getYear() == year) {
+					cout << "New title: ";
 					string new_title;
 					cin.get();
 					getline(cin, new_title, '\n');
@@ -174,8 +176,8 @@ public:
 		else if (option == "genre") {
 			// der Film in der Datenbank suchen; wenn wir es gefunden haben => andern wir das Genre mit new_genre
 			for (int i = 0; i < length; i++) {
-				if (movies[i].getTitle() == title || movies[i].getYear() == year) {
-					cout << endl << "New genre: ";
+				if (movies[i].getTitle() == title && movies[i].getYear() == year) {
+					cout << "New genre: ";
 					string new_genre;
 					cin >> new_genre;
 					movies[i].setGenre(new_genre);
@@ -188,10 +190,17 @@ public:
 		else if (option == "year") {
 			// der Film in der Datenbank suchen; wenn wir es gefunden haben => andern wir das Jahr mit new_year
 			for (int i = 0; i < length; i++) {
-				if (movies[i].getTitle() == title || movies[i].getYear() == year) {
-					cout << endl << "New year: ";
+				if (movies[i].getTitle() == title && movies[i].getYear() == year) {
+					cout << "New year: ";
 					int new_year;
 					cin >> new_year;
+					while (cin.fail()) {
+						cout << "Please enter a valid year" << endl;
+						cin.clear();
+						cin.ignore(256, '\n');
+						cout << "Year: ";
+						cin >> year;
+					}
 					movies[i].setYear(new_year);
 					cout << "Great! You just updated the year!" << endl;
 					found = true;
@@ -202,8 +211,8 @@ public:
 		else if (option == "likes") {
 			// der Film in der Datenbank suchen; wenn wir es gefunden haben => andern wir die Anzahl von Likes mit new_likes
 			for (int i = 0; i < length; i++) {
-				if (movies[i].getTitle() == title || movies[i].getYear() == year) {
-					cout << endl << "New number of likes: ";
+				if (movies[i].getTitle() == title && movies[i].getYear() == year) {
+					cout << "New number of likes: ";
 					int new_like;
 					cin >> new_like;
 					movies[i].setLikes(new_like);
@@ -216,8 +225,8 @@ public:
 		else if (option == "trailer") {
 			// der Film in der Datenbank suchen; wenn wir es gefunden haben => andern wir den Trailer mit new_trailer
 			for (int i = 0; i < length; i++) {
-				if (movies[i].getTitle() == title || movies[i].getYear() == year) {
-					cout << endl << "New url for trailer: ";
+				if (movies[i].getTitle() == title && movies[i].getYear() == year) {
+					cout << "New url for trailer: ";
 					CString new_trailer;
 					// wir lesen den URL als Char
 					char myString[256];
@@ -234,6 +243,10 @@ public:
 		// wenn die Option nicht gultig ist => Nachricht
 		else {
 			cout << "Sorry, the option is not valid..." << endl;
+		}
+
+		if (!found) {
+			cout << "The movie is not in the list. Try to edit another movie.";
 		}
 	}
 
