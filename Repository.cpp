@@ -106,36 +106,41 @@ public:
 
 	Movie* delete_movie_watchlist(string title, int year) {
 		int found = -1;
-		for (int i = 0; i < wlen; i++) {
-			if (watchlist[i].getTitle() == title && watchlist[i].getYear() == year) {
-				found = i;
-				break;
-			}
-		}
-		if (found == -1) {
-			cout << "The movie you wanted to delete was not in the list...Try to delete another movie, if you want to." << endl;
+		if (wlen == 0) {
+			cout << "Your wathclist is empty. Try adding a movie first.";
 		}
 		else {
-			for (int j = found + 1; j < wlen; j++) {
-				watchlist[j - 1] = watchlist[j];
+			for (int i = 0; i < wlen; i++) {
+				if (watchlist[i].getTitle() == title && watchlist[i].getYear() == year) {
+					found = i;
+					break;
+				}
 			}
-			wlen--;
-			found = true;
-			cout << "You just deleted the movie: " << title << " from the list! If you liked it, you can support them with a Like . If you didn't, sorry." << endl;
-			cout << "Like/Not: ";
-			string option;
-			cin >> option;
-			if (option == "Like") {
-				for (int i = 0; i < length; i++) {
-					if (movies[i].getTitle() == title && movies[i].getYear() == year) {
-						movies[i].setLikes(movies[i].getLikes() + 1);
-						cout << "\nThank you for your support!" << endl;
-						break;
+			if (found == -1) {
+				cout << "The movie you wanted to delete was not in the list...Try to delete another movie, if you want to." << endl;
+			}
+			else {
+				for (int j = found + 1; j < wlen; j++) {
+					watchlist[j - 1] = watchlist[j];
+				}
+				wlen--;
+				found = true;
+				cout << "You just deleted the movie: " << title << " from the list! If you liked it, you can support them with a Like . If you didn't, sorry." << endl;
+				cout << "Like/Not: ";
+				string option;
+				cin >> option;
+				if (option == "Like") {
+					for (int i = 0; i < length; i++) {
+						if (movies[i].getTitle() == title && movies[i].getYear() == year) {
+							movies[i].setLikes(movies[i].getLikes() + 1);
+							cout << "\nThank you for your support!" << endl;
+							break;
+						}
 					}
 				}
 			}
 		}
-		return movies;
+		return watchlist;
 	}
 
 	void edit_movie(string title, int year, string option) {
