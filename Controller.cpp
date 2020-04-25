@@ -40,6 +40,7 @@ public:
 				if (repo.movies[i].getGenre() == genre) {
 					cout << endl << "Title: " << repo.movies[i].getTitle() << ", Genre: " << repo.movies[i].getGenre() << \
 						", Year: " << repo.movies[i].getYear() << ", Likes: " << repo.movies[i].getLikes() << endl;
+					Sleep(2000);
 					// wir benutzen ShellExecute um den Link zu offnen
 					ShellExecute(0, 0, repo.movies[i].getTrailer(), 0, 0, SW_SHOW);
 					cout << endl << "So... Did you find that movie interesting?" << endl << \
