@@ -200,12 +200,12 @@ public:
 					cout << "New year: ";
 					int new_year;
 					cin >> new_year;
-					while (cin.fail() || year < 1800 || year>2020) {
+					while (cin.fail() || new_year < 1800 || new_year>2020) {
 						cout << "Please enter a valid year" << endl;
 						cin.clear();
 						cin.ignore(256, '\n');
 						cout << "Year: ";
-						cin >> year;
+						cin >> new_year;
 					}
 					movies[i].setYear(new_year);
 					cout << "Great! You just updated the year!" << endl;
