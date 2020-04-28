@@ -200,7 +200,7 @@ public:
 					cout << "New year: ";
 					int new_year;
 					cin >> new_year;
-					while (cin.fail()) {
+					while (cin.fail() || year < 1800 || year>2020) {
 						cout << "Please enter a valid year" << endl;
 						cin.clear();
 						cin.ignore(256, '\n');
