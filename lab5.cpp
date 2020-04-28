@@ -80,7 +80,7 @@ int main()
 					cout << "Year: ";
 					cin >> year;
 					//Uberpruft ob das Jahr gultig ist = Datenvalidierung
-					while (cin.fail()) {
+					while (cin.fail() || year < 1800 || year>2020) {
 						cout << endl << "Please enter a valid year" << endl;
 						cin.clear();
 						cin.ignore(256, '\n');
@@ -142,7 +142,7 @@ int main()
 					cout << "Year: ";
 					cin >> year;
 					//Uberpruft ob das Jahr gultig ist = Datenvalidierung
-					while (cin.fail()) {
+					while (cin.fail() || year < 1800 || year>2020) {
 						cout << endl << "Please enter a valid year" << endl;
 						cin.clear();
 						cin.ignore(256, '\n');
@@ -175,7 +175,7 @@ int main()
 					cout << "Year: ";
 					cin >> year;
 					//Uberpruft ob das Jahr gultig ist = Datenvalidierung
-					while (cin.fail()) {
+					while (cin.fail() || year < 1800 || year>2020) {
 						cout << endl << "Please enter a valid year" << endl;
 						cin.clear();
 						cin.ignore(256, '\n');
@@ -194,7 +194,7 @@ int main()
 					cout << "Year: ";
 					cin >> year;
 					//Uberpruft ob das Jahr gultig ist = Datenvalidierung
-					while (cin.fail()) {
+					while (cin.fail() || year < 1800 || year>2020) {
 						cout << endl << "Please enter a valid year" << endl;
 						cin.clear();
 						cin.ignore(256, '\n');
